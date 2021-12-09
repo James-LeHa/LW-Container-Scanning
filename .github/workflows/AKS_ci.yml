@@ -81,8 +81,7 @@ jobs:
       - name: build and pull
         shell: bash
         run: |
-          docker build -t azurevote-app:${{ github.sha }} ./azure-vote
-          # docker pull azurevote-app:${{ github.sha }} #Pull the image to scan
+          docker pull azurevote-app:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f #Pull the image to scan
 
       - name: scan
         shell: bash
