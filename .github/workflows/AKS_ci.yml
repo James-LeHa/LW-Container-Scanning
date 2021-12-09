@@ -78,9 +78,10 @@ jobs:
       LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
       LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
     steps:
-      - name: pull
+      - name: build and pull
         shell: bash
         run: |
+          docker build -t azurevote-app:${{ github.sha }} ./azure-vote
           docker pull azurevote-app:${{ github.sha }} #Pull the image to scan
 
       - name: scan
