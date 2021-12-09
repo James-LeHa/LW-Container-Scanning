@@ -7,13 +7,6 @@ products:
   - azure-redis-cache
 description: "This sample creates a multi-container application in an Azure Kubernetes Service (AKS) cluster."
 ---
-# GitHub Demo Day
-
-This demo is part of the GitHub Demo Day sessions hosted weekly! 
-- [Demo Days - From A(KS) to Z, automate your workflows with GitHub!](https://www.linkedin.com/events/demodays-keepcalmanddevopson6838532958866022401/)
-- Friday - Sep 10, 2021
-
-We will use this repo to see how GitHub can simplify security, automation, container management, K8s deployments and more!
 
 ## Prerequisites
 
