@@ -86,15 +86,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: build and pull
-        shell: bash
         run: |
           docker pull ghcr.io/james-leha/lw-container-scanning:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f #Pull the image to scan
 
       - name: scan
-        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get -y install curl
           curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
-          chmod +x lw-scanner
+          sudo chmod +x lw-scanner
           ./lw-scanner image evaluate lw-container-scanning:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f --build-id ${{ github.run_id }}
