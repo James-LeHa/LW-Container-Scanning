@@ -43,12 +43,12 @@ jobs:
           name: lacework-report
           path: lacework-report.html
 
-      - name: Login to GitHub Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Login to GitHub Container Registry
+      #   uses: azure/docker-login@v1
+      #   with:
+      #     login-server: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push the latest Docker image
-        run: docker push ${DOCKER_REPO}:${DOCKER_TAG}
+      # - name: Push the latest Docker image
+      #   run: docker push ${DOCKER_REPO}:${DOCKER_TAG}
