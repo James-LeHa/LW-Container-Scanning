@@ -26,32 +26,31 @@ env:
   STAGING_SECRET: avf-secret
   
 jobs:
-
   build-image-ghcr:
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@main
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
 
-      # Get lowercase repo name
-      - name: downcase REPO
-        run: |
-          echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+    # Get lowercase repo name
+    - name: downcase REPO
+      run: |
+        echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
-      # Connect to GitHub Container Registry (ghcr)
-      - name: Login to GitHub Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Build and push to GHCR
-        uses: docker/build-push-action@v2
-        with:
-          context: ./azure-vote
-          file: ./azure-vote/Dockerfile
-          push: true
-          tags: ghcr.io/${{env.REPO}}:${{ github.sha }}
+    # Connect to GitHub Container Registry (ghcr)
+    - name: Login to GitHub Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Build and push to GHCR
+      uses: docker/build-push-action@v2
+      with:
+        context: ./azure-vote
+        file: ./azure-vote/Dockerfile
+        push: true
+        tags: ghcr.io/${{env.REPO}}:${{ github.sha }}
 
   # deploy-staging:
   #     runs-on: ubuntu-latest
