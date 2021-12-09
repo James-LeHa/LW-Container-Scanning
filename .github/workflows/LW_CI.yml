@@ -14,8 +14,8 @@ jobs:
       LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
       LW_SCANNER_SAVE_RESULTS: true
       LW_SCANNER_SCAN_LIBRARY_PACKAGES: true
-      DOCKER_REPO: alannix/nix-foundation
-      DOCKER_TAG: latest
+      DOCKER_REPO: James-LeHa/LW-Container-Scanning
+      DOCKER_TAG: ${{ github.sha }}
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
