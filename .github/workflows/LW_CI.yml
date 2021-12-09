@@ -15,7 +15,7 @@ jobs:
       LW_SCANNER_SAVE_RESULTS: true
       LW_SCANNER_SCAN_LIBRARY_PACKAGES: true
       DOCKER_REPO: James-LeHa/LW-Container-Scanning
-      DOCKER_TAG: ${{ github.sha }}
+      DOCKER_TAG: latest
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build the latest Docker image
-        run: docker build -t azurevote-app:${{ github.sha }} ./azure-vote
+        run: docker build -t ${DOCKER_REPO}:${DOCKER_TAG} ./azure-vote
 
       - name: Download Lacework Scanner
         run: |
