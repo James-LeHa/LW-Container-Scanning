@@ -78,17 +78,17 @@ jobs:
       LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
       LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
     steps:
+      - name: Login to GitHub Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v1
-
-      - name: Build docker image
+      - name: build and pull
+        shell: bash
         run: |
-          docker build -t azurevote-app:${{ github.sha }} ./azure-vote
-
-      # - name: build and pull
-      #   shell: bash
-      #   run: |
-      #     docker pull azurevote-app:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f #Pull the image to scan
+          docker pull azurevote-app:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f #Pull the image to scan
 
       - name: scan
         shell: bash
