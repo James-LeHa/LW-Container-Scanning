@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [ß3.8]
 
     steps:
       - uses: actions/checkout@v2
@@ -34,26 +34,6 @@ jobs:
         run: |
           pytest
   
-  lint:
-    name: Lint Codebase 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
-      - name: Install Python dependencies
-        run: pip install black flake8
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
-        with:
-          flake8: true
-  
   build-scan-image:
     name: Build and Scan Container
     runs-on: ubuntu-latest
@@ -70,29 +50,3 @@ jobs:
         image-name: azurevote-app:${{ github.sha }}
         severity-threshold: CRITICAL
         run-quality-checks: false
-
-  lw-scan-job:
-    name: Build and Scan Container
-    runs-on: ubuntu-18.04
-    env:
-      LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-      LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }}
-    steps:
-      - name: Login to GitHub Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: build and pull
-        run: |
-          docker pull ghcr.io/james-leha/lw-container-scanning:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f #Pull the image to scan
-
-      - name: scan
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install curl
-          curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner
-          sudo chmod +x lw-scanner
-          ./lw-scanner image evaluate lw-container-scanning:ec8b143a7bb63233767e4f14bb1cc79e1bd0460f --build-id ${{ github.run_id }}
