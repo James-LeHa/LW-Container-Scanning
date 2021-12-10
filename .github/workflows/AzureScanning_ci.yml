@@ -37,7 +37,6 @@ jobs:
   build-scan-image:
     name: Build and Scan Container
     runs-on: ubuntu-latest
-    needs: [lint, build-test]
     steps:
     - uses: actions/checkout@v1
 
