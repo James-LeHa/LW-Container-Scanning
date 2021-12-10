@@ -77,6 +77,7 @@ resource "azurerm_app_service" "main" {
     dotnet_framework_version = "v4.0"
     scm_type                 = "LocalGit"
   }
+  https_only          = true
 }
 
 resource "azurerm_policy_assignment" "Diagnostic_Logs" {
