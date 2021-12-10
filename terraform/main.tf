@@ -100,3 +100,21 @@ resource "azurerm_policy_assignment" "TLS_Version_Latest" {
   policy_definition_id = "/providers/Microsoft.Authorization/policyDefinitions/f0e6e85b-9b9f-4a4b-b67b-f730d42f1b0b"
 
 }
+
+resource "azurerm_app_service" "main" {
+  name                = var.app_service_name
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  app_service_plan_id = azurerm_app_service_plan.main.id
+
+  site_config {
+    linux_fx_version = "DOCKER|ghcr.io/octodemo/demoday-node:bootstrap"
+    always_on        = "true"
+  }
+  app_settings = {
+    "DOCKER_REGISTRY_SERVER_URL"      = "https://ghcr.io/"
+    "DOCKER_REGISTRY_SERVER_USERNAME" = var.registry_username
+    "DOCKER_REGISTRY_SERVER_PASSWORD" = var.registry_password
+    "WEBSITES_PORT"                   = "8000"
+  }
+}
