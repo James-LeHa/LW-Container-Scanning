@@ -1,5 +1,4 @@
-name: Lacework Build/Scan/Push 
-
+name: Lacework Inline Scan
 on:
   pull_request:
     branches:
