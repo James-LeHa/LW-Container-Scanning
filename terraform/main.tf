@@ -78,6 +78,11 @@ resource "azurerm_app_service" "main" {
     scm_type                 = "LocalGit"
   }
   https_only          = true
+
++   identity  {
++     type          = "SystemAssigned"
++   }
+
 }
 
 resource "azurerm_policy_assignment" "Diagnostic_Logs" {
