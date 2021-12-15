@@ -6,7 +6,7 @@ provider "azurerm" {
 
 variable "app_service_name" {
   type        = string
-  description = "The requested name for the Azure App Service, must be unique"
+  description = "The requested name for the Azure App Service, must be unique."
 }
 
 variable "location" {
